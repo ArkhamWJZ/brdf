@@ -1,0 +1,20 @@
+analytic
+
+::begin parameters
+float n 1 1000 100
+bool divide_by_NdotL 1
+::end parameters
+
+::begin shader
+
+vec3 BRDF( vec3 L, vec3 V, vec3 N, vec3 X, vec3 Y )
+{
+    vec3 H = normalize(L+V);
+
+    float val = pow(max(0,dot(N,H)),n);
+    if (divide_by_NdotL)
+        val = val / dot(N,L);
+    return vec3(val);
+}
+
+::end shader
